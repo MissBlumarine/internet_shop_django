@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список дополнений к настольным играм</title>
+</head>
+<body>
+<div class="container">
+  <h1>Список дополнений к настольным играм</h1>
+  <ul class="list-group">
+    {% for addition in object_list %}
+      <li class="list-group-item">
+        <a href="{% url 'boardgames:details_addition' addition.pk %}">{{ addition.name }} [ ---- {{ addition.price }} руб.]</a>
+        <i>Возраст игроков: {{ addition.min_age_of_player}} +</i>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+<div class="container">
+<a href="{% url 'boardgames:index' %}">Вернуться к списку настольных игр</a>
+</div>
+</body>
+</html>

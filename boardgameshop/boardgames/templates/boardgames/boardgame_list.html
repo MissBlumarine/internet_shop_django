@@ -1,0 +1,24 @@
+{% extends 'boardgames/base.html' %}
+
+
+{% block title %}
+  Список настольных игр
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <h1>Список настольных игр</h1>
+  <ul class="list-group">
+    {% for boardgame in object_list %}
+      <li class="list-group-item">
+        <a href="{% url 'boardgames:details' boardgame.pk %}">{{ boardgame.name }} [ ---- {{ boardgame.price }} руб.]</a>
+        <i>Возраст игроков:<a href="{% url 'boardgames:details' boardgame.pk %}"> {{ boardgame.min_age_of_player}} +</i>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="container">
+  <a href="{% url 'boardgames:addition' %}">Список дополнений к настольным играм</a>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'boardgames/base.html' %}
+
+{% block title %}
+  User info
+{% endblock %}
+
+{% block body %}
+  <div class="container">
+  <h1>Hello {% firstof user.username user.first_name user.email  user %}</h1>
+  <h3>Bio:</h3>
+  <p>
+    {% if user.profile.bio %}
+      {{ user.profile.bio }}
+    {% else %}
+      <span>no bio</span>
+    {% endif %}
+  </p>
+  </div>
+{% endblock %}
