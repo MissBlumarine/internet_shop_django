@@ -1,6 +1,6 @@
 from decimal import Decimal
 from django.conf import settings
-from boardgames.models import Boardgame, Addition
+from boardgames.models import Boardgame
 
 
 class Cart(object):

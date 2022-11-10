@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpRequest
 from django.views.generic import ListView, DetailView
 
-from .models import Boardgame, BoardgameAge, Addition
+from cart.forms import CartAddProductForm
+from .models import Boardgame
 
 
 def index(request: HttpRequest):
@@ -12,18 +13,14 @@ def index(request: HttpRequest):
     return render(request=request, template_name="boardgames/index.html", context=context)
 
 
-def details(request: HttpRequest, pk: int):
+def details(request: HttpRequest, pk: int, slug):
     context = {
         "boardgame": get_object_or_404(Boardgame, pk=pk)
     }
+    cart_product_form = CartAddProductForm()
     return render(request=request, template_name="boardgames/details.html", context=context)
 
-
-def addition(request: HttpRequest):
-    context = {
-        "additions": Addition.objects.order_by("pk").all()
-    }
-    return render(request=request, template_name="boardgames/addition.html", context=context)
+# slug= {'product': product, 'cart_product_form': cart_product_form}
 
 
 class BoardgameListView(ListView):
@@ -39,20 +36,3 @@ class BoardgameListView(ListView):
 class BoardgameDetailView(DetailView):
     model = Boardgame
 
-
-class AdditionListView(ListView):
-    model = Addition
-    context_object_name = "addition"
-    queryset = (Addition
-                .objects
-                .order_by("pk")
-                .all()
-                )
-
-
-class AdditionDetailView(DetailView):
-    model = Addition
-
-
-class BoardgameByAgeListView(ListView):
-    queryset = Boardgame.objects.select_related("min_age_of_player")
